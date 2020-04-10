@@ -7,7 +7,14 @@ namespace knights
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Knight player = new Knight();
+            Mob mob1 = new Mob();
+            Combat combat = new Combat(player, mob1);
+            while (combat.spawn)
+            {
+                combat.Sequence();
+            }
+            Console.WriteLine("fin");
         }
     }
 }
