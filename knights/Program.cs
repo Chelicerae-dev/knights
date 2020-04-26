@@ -23,10 +23,10 @@ namespace knights
             while (player.hp > 0)
             {
                 int i = 1;
-                Console.Write($"Turn {i}");
+                //Console.Write($"Turn {i}");
 
                 RandEvent.DoEvent();
-                InitialGUI.ShowGui();
+                //InitialGUI.ShowGui();
                 i++;
             }
             

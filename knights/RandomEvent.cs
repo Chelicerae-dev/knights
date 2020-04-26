@@ -23,14 +23,15 @@ namespace knights
                 case 1:
                     Mob mob = Spawn();
                     MainClass.InitialGUI.MyMob = mob;
-                    MainClass.InitialGUI.ShowGui();
+                    //MainClass.InitialGUI.ShowGui();
                     DoCombat(MainClass.player, mob).Sequence();
-                    MainClass.InitialGUI.ShowGui();
+                    //MainClass.InitialGUI.ShowGui();
                     break;
                 case 2:
 
                     MainClass.player.hp = ((MainClass.player.MaxHp - MainClass.player.hp) <= 10 ) ? MainClass.player.hp += 10 : MainClass.player.hp += (MainClass.player.MaxHp - MainClass.player.hp);
                     Console.WriteLine($"Rare moment of peace. HP restored to {MainClass.player.hp}.");
+                    System.Threading.Thread.Sleep(3000);
                     break;
                 default:
                     goto case 1;
