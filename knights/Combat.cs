@@ -53,13 +53,16 @@ namespace knights
         }
         public void MobAttack()
         {
-            double PlayerEvadeChance = (player.agi - mob.agi) * player.luck / 77;
-            bool PlayerEvade = PlayerEvadeChance >= random.NextDouble() ? true : false;
+            double MobRand = random.NextDouble();
+            double PlayerEvadeChance = (player.agi - mob.agi) * player.luck * random.NextDouble() / 100;
+            
+            bool PlayerEvade = PlayerEvadeChance >= MobRand ? true : false;
+            Console.WriteLine($"Your evade chance is {PlayerEvadeChance} of {MobRand}");
             bool IsCrit = 0.1 >= random.NextDouble() ? true : false;
             Console.WriteLine($"{mob.name} attacks you!");
             if (PlayerEvade)
             {
-                Console.WriteLine($"You evaded {mob.name}'s attack.");
+                //Console.WriteLine($"You evaded {mob.name}'s attack.");
                 damage = 0;
             }
             else
@@ -68,7 +71,7 @@ namespace knights
                 {
                     case true:
                         damage = mob.atk * 2;
-                        Console.WriteLine($"{mob.name} landed critical hit!");
+                        //Console.WriteLine($"{mob.name} landed critical hit!");
                         break;
                     case false:
                         damage = mob.atk;
@@ -78,42 +81,49 @@ namespace knights
             player.hp -= damage;
             Console.WriteLine($"{mob.name} inflicted {damage} damage to you.");
         }
-        public static void Spawn()
-        {
-            Mob mob = new Mob();
-            mob.hp = mob.hp;
-            mob.atk = mob.atk;
-        }
+
         public void Sequence()
         {
             while (player.hp > 0)
             {
+                MainClass.InitialGUI.ShowGui();
                 Console.WriteLine("Press A for attack");
-                string action = Console.ReadLine();
+                char action =  Console.ReadKey().KeyChar;
                 switch (action)
                 {
-                    case "a":
+                    case 'a':
                         DoAttack();
+                        Console.WriteLine($"Mob has {mob.hp} hp remained");
                         break;
                     default:
                         break;
                 }
                 if (mob.hp > 0)
                 {
-                    Console.WriteLine($"{mob.name}'s turn!");
+                    //Console.WriteLine($"{mob.name}'s turn!");
                     MobAttack();
+                    Console.WriteLine($"You have {player.hp} hp remained");
                 }
                 else
                 {
                     Console.WriteLine($"{mob.name} defeated!");
-                    Spawn();
-                    
+                    break;
+
                 }
+                System.Threading.Thread.Sleep(1000);
             }
-            Console.WriteLine("You died");
-            spawn = false;
-            return;
+            if (player.hp <= 0)
+            {
+                Console.WriteLine("You died");
+                spawn = false;
+                return;
+            }
+            else
+            {
+                return;
+            }
         }
+        
         public Combat(Knight Player, Mob Mob_)
         {
             player = Player;

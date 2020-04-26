@@ -51,6 +51,9 @@
     <Compile Include="Knight.cs" />
     <Compile Include="Mob.cs" />
     <Compile Include="Weapon.cs" />
+    <Compile Include="EmptyEnumeration.cs" />
+    <Compile Include="RandomEvent.cs" />
+    <Compile Include="GUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Схема.txt" />

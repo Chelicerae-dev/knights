@@ -3,11 +3,14 @@ namespace knights
 {
     public class Knight
     {
-        int hp { get; set; }
-        int atk { get; set; } 
-        int agi { get; set; }
-        int luck { get; set; }
-        bool WeaponIsEquipped { get; set; }
+        public int hp { get; set; }
+        public int MaxHp { get; set; }
+        public int atk { get; set; }
+        public double agi { get; set; }
+        public double luck { get; set; }
+        public int WeapDurability { get; set; }
+        public bool WeaponIsEquipped { get; set; }
+        public double Crit { get; set; }
         string[] shout = new string[4] { "For honor!", "Die, scoundrel!", "Raaagh!", "Harraaaah!" }; 
         //Random rand = new Random(4);
         protected string DoShout(Random rand)
@@ -20,20 +23,39 @@ namespace knights
             }
         public void EquipWeapon(Weapon weap)
         {
-            WeaponIsEquipped = true;
+            Console.WriteLine($"Such a trusty {weap.name} I have found!");
+            WeapDurability = weap.durability;
             atk += weap.atk;
-            Console.WriteLine(@"Such a trusty {weap.name} I have found!");
+            agi -= weap.weight / (luck / 2);
+
         }
-        /*public void DoAttack(Mob target)
+        public void UnequipWeapon(Weapon weap, string reason)
         {
-            WeaponIsEquipped ? 
-        }*/
-        public Knight()
+            atk -= weap.atk;
+            WeaponIsEquipped = false;
+            switch (reason)
+            {
+                case "broken":
+                    Console.WriteLine($"{weap.name} has broken and no longer equipped.");
+                    break;
+                case "unequipped":
+                    Console.WriteLine($"{weap.name} unequipped.");
+                    break;
+            }
+        }
+        
+    /*public void DoAttack(Mob target)
+    {
+        WeaponIsEquipped ? 
+    }*/
+    public Knight()
         {
-            hp = 80;
-            atk = 5;
-            agi = 5;
-            luck = 5;
+            Crit = 0.15;
+            hp = 120;
+            MaxHp = 120;
+            atk = 15;
+            agi = 20;
+            luck = 10;
         }
     }
 }
